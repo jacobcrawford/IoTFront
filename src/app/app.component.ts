@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     this.http = http;
     this.title = 'First piece of Pi';
     this.data = {};
-    this.configUrl = 'https://86.52.111.117:20';
+    this.configUrl = 'http://86.52.111.117:20';
   }
 
   ngOnInit(): void {
