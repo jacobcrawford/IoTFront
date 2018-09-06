@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     this.http = http;
     this.title = 'First piece of Pi';
     this.data = {};
-    this.configUrl = 'http://86.52.111.117:20';
+    this.configUrl = 'http://86.52.111.117:4242';
   }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   setData() {
     this.getData().subscribe((data: GetDataConfig) => {
       this.data = data;
-      console.log(this.data);
+      this.getData().unsubscribe();
     });
   }
 }
