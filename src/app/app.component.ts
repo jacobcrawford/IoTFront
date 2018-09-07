@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +9,15 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title;
-  data;
-  configUrl;
-  http;
+  title: string;
+  data: GetDataConfig;
+  configUrl: string;
+  http: HttpClient;
+  dataSubscription: Subscription;
 
   constructor(http: HttpClient) {
     this.http = http;
     this.title = 'First piece of Pi';
-    this.data = {};
     this.configUrl = 'http://86.52.111.117:4242';
   }
 
@@ -25,13 +26,13 @@ export class AppComponent implements OnInit {
   }
 
   getData() {
-    return this.data = this.http.get(this.configUrl);
+    return this.http.get(this.configUrl);
   }
 
   setData() {
-    this.getData().subscribe((data: GetDataConfig) => {
+    this.dataSubscription = this.getData().subscribe((data: GetDataConfig) => {
       this.data = data;
-      this.getData().unsubscribe();
+      this.dataSubscription.unsubscribe();
     });
   }
 }

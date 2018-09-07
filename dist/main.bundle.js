@@ -27,7 +27,7 @@ module.exports = ""
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n  <img width=\"300\" alt=\"Angular Logo\" src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==\">\n</div>\n<div>\n  <h2> Humidity: {{data.hum}} %</h2>\n  <h2>Temperature: {{data.temp}} C</h2>\n  <h2>Led : {{data.led ? \"on\" : \"off\"}}</h2>\n  <button (onclick)=\"this.getData()\">Update</button>\n</div>\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n  <img width=\"300\" alt=\"Angular Logo\" src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==\">\n</div>\n<div>\n  <h2> Humidity: {{data.hum}} %</h2>\n  <h2>Temperature: {{data.temp}} C</h2>\n  <h2>Led : {{data.led ? \"on\" : \"off\"}}</h2>\n  <button (click)=\"this.setData()\">Update</button>\n</div>\n\n"
 
 /***/ }),
 
@@ -54,19 +54,20 @@ var AppComponent = /** @class */ (function () {
         this.http = http;
         this.title = 'First piece of Pi';
         this.data = {};
-        this.configUrl = 'http://86.52.111.117:20';
+        this.configUrl = 'http://86.52.111.117:4242';
     }
     AppComponent.prototype.ngOnInit = function () {
         this.setData();
     };
     AppComponent.prototype.getData = function () {
-        return this.data = this.http.get(this.configUrl);
+        return this.http.get(this.configUrl);
     };
     AppComponent.prototype.setData = function () {
         var _this = this;
-        this.getData().subscribe(function (data) {
+        this.dataSubscribtion = this.getData().subscribe(function (data) {
             _this.data = data;
-            console.log(_this.data);
+            console.log('setdata called');
+            _this.dataSubscribtion.unsubscribe();
         });
     };
     AppComponent = __decorate([
