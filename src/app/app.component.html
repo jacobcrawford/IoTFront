@@ -1,14 +1,30 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <img
+    src="https://pbs.twimg.com/profile_images/558478562974785536/gwe4Ck5B_400x400.jpeg"
+    alt="No pic">
+  <form #form="ngForm" (ngSubmit)="connect()">
+    <div class="form-group">
+      <label for="endpoint">
+        Enter endpoint for connecting to pi
+      </label>
+      <input type="text"
+             class="form-control"
+             id="endpoint"
+             name="endpoint"
+             required
+             [(ngModel)]="configUrl">
+    </div>
+    <button (click)="connect()" class="btn btn-success">Connect</button>
+  </form>
 </div>
+
 <div>
-  <h2> Humidity: {{data.hum}} %</h2>
-  <h2>Temperature: {{data.temp}} C</h2>
-  <h2>Led : {{data.led ? "on" : "off"}}</h2>
-  <button (click)="this.setData()">Update</button>
+  <h2> Humidity: {{data?.hum}} %</h2>
+  <h2>Temperature: {{data?.temp}} C</h2>
+  <h2>Led : {{data?.led ? "on" : "off"}}</h2>
+  <button type="submit">Update</button>
 </div>
 

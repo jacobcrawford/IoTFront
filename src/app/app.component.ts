@@ -8,26 +8,25 @@ import {Subscription} from 'rxjs/Subscription';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title: string;
-  data: GetDataConfig;
+export class AppComponent {
+  public title: string;
+  public data: GetDataConfig;
   configUrl: string;
-  http: HttpClient;
-  dataSubscription: Subscription;
+  private http: HttpClient;
+  private dataSubscription: Subscription;
 
   constructor(http: HttpClient) {
     this.http = http;
     this.title = 'First piece of Pi';
-    this.configUrl = 'http://86.52.111.117:4242';
   }
 
-  ngOnInit(): void {
-    this.setData();
-  }
-
-  getData() {
-    return this.http.get(this.configUrl);
-  }
+  private getData() {
+    if (this.configUrl) {
+      return this.http.get<GetDataConfig>(this.configUrl);
+    } else {
+      alert('Input ip of the pi that you want to connect to');
+    }
+    }
 
   setData() {
     this.dataSubscription = this.getData().subscribe((data: GetDataConfig) => {
@@ -35,10 +34,15 @@ export class AppComponent implements OnInit {
       this.dataSubscription.unsubscribe();
     });
   }
+
+  public connect() {
+    this.getData();
+    this.setData();
+  }
 }
 
 export interface GetDataConfig {
-  let: number;
+  led: number;
   hum: string;
   temp: string;
 }
