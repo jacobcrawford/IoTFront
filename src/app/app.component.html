@@ -5,26 +5,33 @@
   <img
     src="https://pbs.twimg.com/profile_images/558478562974785536/gwe4Ck5B_400x400.jpeg"
     alt="No pic">
-  <form #form="ngForm" (ngSubmit)="connect()">
+
+  <form #socketform="ngForm" (ngSubmit)="subscribeToDataWithSocket()">
     <div class="form-group">
-      <label for="endpoint">
-        Enter endpoint for connecting to pi
+      <label for="socketend">
+        Enter endpoint for connecting to socket pi
       </label>
       <input type="text"
              class="form-control"
-             id="endpoint"
+             id="socketend"
              name="endpoint"
              required
-             [(ngModel)]="configUrl">
+             [(ngModel)]="socketUrl">
     </div>
-    <button (click)="connect()" class="btn btn-success">Connect</button>
+    <button (click)="subscribeToDataWithSocket()" class="btn btn-success">Connect</button>
   </form>
+
 </div>
 
 <div>
-  <h2> Humidity: {{data?.hum}} %</h2>
-  <h2>Temperature: {{data?.temp}} C</h2>
-  <h2>Led : {{data?.led ? "on" : "off"}}</h2>
-  <button type="submit">Update</button>
+  <h2> Humidity: {{data?.pi.sensors.humidity.value}} %</h2>
+  <h2>Temperature: {{data?.pi.sensors.temperature.value}}C </h2>
+  <h2>First led : {{data?.pi.actuators.leds['1'].value ? "on" : "off"}}</h2>
+  <button (click)="setLED(1)">{{data?.pi.actuators.leds['1'].value ? "Turn off" : "Turn on"}}</button>
+  <h2>Second led : {{data?.pi.actuators.leds['2'].value ? "on" : "off"}}</h2>
+  <button (click)="setLED(2)">{{data?.pi.actuators.leds['2'].value ? "Turn off" : "Turn on"}}</button>
+  <h2>Third led : {{data?.pi.actuators.leds['3'].value ? "on" : "off"}}</h2>
+  <button (click)="setLED(3)">{{data?.pi.actuators.leds['3'].value ? "Turn off" : "Turn on"}}</button>
+
 </div>
 
